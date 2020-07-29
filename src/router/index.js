@@ -7,7 +7,13 @@ import VueRouter from "vue-router";
 // import HomeMain from "./../components/home/main.vue";
 import OrderMain from "./../components/order/main.vue";
 import UserLogin from "./../components/user/login.vue";
+import UserMain from "./../components/user/main.vue"; 
+import UserView from "./../components/user/view.vue"; 
+import UserComplete from "./../components/user/complete.vue"; 
+import UserRegist from "./../components/user/regist.vue";
+import UsermodifyPassword from "./../components/user/modifyPassword.vue";
 import Home from "../views/Home";
+import OrderList from "./../components/order/list.vue";
 
 //安装：
 //npm install vue-router --save(save把增加的依赖信息填写到package.json文件)
@@ -28,6 +34,38 @@ const routes = [
         path: "order",
         name: "ordermain",
         component: OrderMain,
+        children:[
+          {
+            path:"list",
+            name:"orderlist",
+            component:OrderList
+          },
+          {
+            path:"/home/order",
+            redirect: "/home/order/list"
+          }
+        ]
+      },
+      {
+        path: "user",
+        name: "usermain",
+        component: UserMain,
+        children:[
+          {
+            path:"view",
+            name:"userview",
+            component:UserView
+          },
+          {
+            path:"complete",
+            name:"usercomplete",
+            component:UserComplete
+          },
+          {
+            path:"/home/user",
+            redirect: "/home/user/view"
+          }
+        ]
       },
     ],
   },
@@ -35,6 +73,16 @@ const routes = [
     path: "/login",
     name: "userlogin",
     component: UserLogin,
+  },
+  {
+    path: "/regist",
+    name: "userRegist",
+    component: UserRegist,
+  },
+  {
+    path: "/modifyPassword",
+    name: "usermodifyPassword",
+    component: UsermodifyPassword,
   },
 ];
 
@@ -46,7 +94,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    const isLogin = localStorage.getItem("userId");
+    const isLogin = localStorage.getItem("userName");
     if (isLogin) {
       next();
     } else {

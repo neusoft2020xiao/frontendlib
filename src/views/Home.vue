@@ -35,9 +35,9 @@
             <img src="../assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
           </div>
           <div class="pull-left info">
-            <p>用户名</p>
+            <p>{{userName}}</p>
             <router-link to="/login">
-              <i class="fa fa-circle text-success"></i>登录
+              <i class="fa fa-circle text-success"></i>在线
             </router-link>
           </div>
         </div>
@@ -45,13 +45,13 @@
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">操作选择</li>
           <li class="treeview">
-            <a href="#">
+            <router-link to="/home/user">
               <i class="fa fa-dashboard"></i>
               <span>信息管理</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
-            </a>
+            </router-link>
           </li>
           <li class="treeview">
             <a href="#">
@@ -66,6 +66,15 @@
             <router-link to="/home/order">
               <i class="fa fa-dashboard"></i>
               <span>预订客房</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </router-link>
+          </li>
+          <li class="treeview">
+            <router-link to="/home/order">
+              <i class="fa fa-dashboard"></i>
+              <span>订单列表</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
@@ -129,13 +138,18 @@
 <script>
 export default {
   name: "Home",
+  data() {
+    return {
+      userName:localStorage.getItem("userName")
+    }
+  },
   components: {},
 };
 </script>
 
 
 <style scoped>
-  .home {
-    height: 100%
-  }
+.home {
+  height: 100%;
+}
 </style>
